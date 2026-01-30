@@ -1,0 +1,10 @@
+@import './base.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  On supprime toutes les règles par défaut de Vue (#app, body display flex, etc.)
+  pour laisser Tailwind gérer entièrement la mise en page.
+*/
