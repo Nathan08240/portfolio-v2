@@ -33,8 +33,9 @@ const distPath = path.join(__dirname, 'public');
 app.use(express.static(distPath));
 
 // --- CATCH-ALL ROUTE (POUR VUE ROUTER) ---
-// Toutes les requêtes qui ne sont pas des API sont renvoyées vers index.html
-app.get('*', (req, res) => {
+// CORRECTION ICI : Utilisation d'une Regex pour capturer toutes les routes non gérées
+// Express 5 n'aime pas '*' tout seul.
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(distPath, 'index.html'));
 });
 
@@ -51,7 +52,6 @@ const initializeDatabase = async () => {
     console.log('Models synced.');
 
     // Initialisation des données par défaut (Profil, Admin, Expériences, Projets)
-    // ... (Code identique à avant, je ne le répète pas pour la concision, mais il est conservé)
     const profileCount = await Profile.count();
     if (profileCount === 0) {
       await Profile.create({
@@ -67,11 +67,49 @@ const initializeDatabase = async () => {
       await User.create({ username: 'admin', password: hashedPassword });
     }
     
-    // ... (Expériences et Projets par défaut)
+    const expCount = await Experience.count();
+    if (expCount === 0) {
+      await Experience.bulkCreate([
+        {
+          title: "Développeur Full Stack",
+          organization: "Tech Solutions Inc.",
+          type: "work",
+          startDate: "2022",
+          endDate: "Présent",
+          description: "Développement d'applications web React/Node.js, gestion de base de données, optimisation des performances."
+        },
+        {
+          title: "Master Informatique",
+          organization: "Université de Technologie",
+          type: "education",
+          startDate: "2020",
+          endDate: "2022",
+          description: "Spécialisation en génie logiciel et systèmes distribués."
+        }
+      ]);
+    }
+    
+    const projCount = await Project.count();
+    if (projCount === 0) {
+        await Project.bulkCreate([
+            {
+              title: "Mon Portfolio",
+              description: "Le site que vous consultez actuellement. Développé avec Vue.js, Tailwind CSS et un backend Node.js/Express.",
+              technologies: "Vue.js,Node.js,Sequelize,Tailwind CSS",
+              repoUrl: "https://github.com/votre-pseudo/portfolio-v2",
+            },
+            {
+              title: "Application de Tâches",
+              description: "Une application simple de type 'To-Do List' pour gérer les tâches quotidiennes, avec une interface réactive.",
+              technologies: "Vue.js,Vite,CSS",
+              projectUrl: "https://lien-vers-votre-app.com",
+              repoUrl: "https://github.com/votre-pseudo/todo-app",
+            }
+        ]);
+    }
 
   } catch (error) {
     console.error('Failed to initialize database:', error);
-    // On ne quitte pas le processus ici pour laisser le serveur tourner même si la DB a un souci temporaire
   }
 };
 
