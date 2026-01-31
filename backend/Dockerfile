@@ -1,27 +1,27 @@
-# Utiliser une image Node.js LTS légère
-FROM node:20-alpine
+# On utilise une image Node.js complète (pas Alpine) pour faciliter la compilation native
+FROM node:20
 
-# Créer le répertoire de travail
-WORKDIR /app
-
-# Installer les dépendances système nécessaires pour compiler les modules natifs (comme better-sqlite3)
-# python3, make, g++ sont souvent requis par node-gyp
-RUN apk add --no-cache python3 make g++
-
-# Copier les fichiers de dépendances
-COPY package.json pnpm-lock.yaml* ./
-
-# Installer pnpm
+# Installation de pnpm
 RUN npm install -g pnpm
 
-# Installer les dépendances du projet
+WORKDIR /app
+
+# Copie des fichiers de définition des dépendances
+COPY package.json pnpm-lock.yaml* ./
+
+# Configuration spécifique pour pnpm et les modules natifs
+# On crée le fichier pnpm-workspace.yaml pour forcer le build des dépendances natives
+RUN printf "onlyBuiltDependencies:\n  - better-sqlite3\n  - sqlite3\n  - sequelize\n" > pnpm-workspace.yaml
+
+# Installation des dépendances
+# --frozen-lockfile assure qu'on installe exactement les versions du lockfile
 RUN pnpm install --frozen-lockfile
 
-# Copier le reste du code source
+# Copie du reste du code source
 COPY . .
 
-# Exposer le port sur lequel l'application tourne
+# Exposition du port
 EXPOSE 3000
 
-# Commande de démarrage
+# Démarrage
 CMD ["pnpm", "start"]
