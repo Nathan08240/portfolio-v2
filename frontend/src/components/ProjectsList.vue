@@ -23,7 +23,7 @@ const getTechs = (techString) => techString.split(',');
   <section id="projects" class="py-20 md:py-32  max-w-7xl mx-auto">
     <div class="flex items-center mb-12 w-full">
       <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-heading flex items-center whitespace-nowrap">
-        <span class="text-accent font-mono text-xl md:text-2xl mr-2">03.</span> Quelques Projets
+        <span class="text-accent font-mono text-xl md:text-2xl mr-2">03.</span> Quelques projets
       </h2>
       <div class="h-px bg-background-mute flex-grow ml-6 max-w-xs hidden sm:block"></div>
     </div>
