@@ -14,7 +14,6 @@ RUN pnpm install --frozen-lockfile
 COPY frontend/ .
 
 # Build du frontend (génère le dossier dist)
-# On définit l'URL de l'API comme relative pour le monolithe
 ENV VITE_API_URL=/api
 RUN pnpm run build
 
@@ -42,6 +41,9 @@ COPY backend/ .
 # --- ÉTAPE 3 : ASSEMBLAGE FINAL ---
 # On copie le build du frontend (dist) vers le dossier public du backend
 COPY --from=frontend-build /app/frontend/dist ./public
+
+# Création du dossier pour la persistance des données
+RUN mkdir -p /app/data
 
 # Exposition du port
 EXPOSE 3000
