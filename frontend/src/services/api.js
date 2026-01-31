@@ -1,6 +1,6 @@
-// Utilisation de la variable d'environnement VITE_API_URL
-// Si elle n'est pas définie (ex: en dev local sans .env), on fallback sur localhost:3000/api
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+// En production (monolithe), l'API est sur le même domaine, donc on utilise un chemin relatif '/api'.
+// En développement, on peut surcharger avec VITE_API_URL si besoin.
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 export const apiService = {
   // --- PROFIL ---
@@ -91,7 +91,6 @@ export const apiService = {
   },
 
   // --- AUTH ---
-  // J'ajoute aussi la méthode de login ici pour centraliser l'URL
   async login(credentials) {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
