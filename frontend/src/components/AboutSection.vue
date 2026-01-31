@@ -1,6 +1,6 @@
 <script setup>
 const skills = [
-  'JavaScript (ES6+)', 'Vue.js 3', 'Node.js', 'Express',
+  'JavaScript (ES6+) / Typescript', 'React / NextJS', 'Vue.js / Nuxt', 'Node.js', 'Express', 'Python', 'FastAPI',
   'Sequelize', 'SQLite', 'Tailwind CSS', 'Git'
 ];
 </script>
