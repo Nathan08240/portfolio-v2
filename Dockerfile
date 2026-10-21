@@ -2,7 +2,7 @@
 FROM node:20-alpine as frontend-build
 
 # Activation de pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10.34.7 --activate
 
 WORKDIR /app/frontend
 
@@ -22,7 +22,7 @@ RUN pnpm run build
 FROM node:20 as backend
 
 # Installation de pnpm
-RUN npm install -g pnpm
+RUN corepack enable && corepack prepare pnpm@10.34.7 --activate
 
 WORKDIR /app
 
