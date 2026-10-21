@@ -4,7 +4,94 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-  On supprime toutes les règles par défaut de Vue (#app, body display flex, etc.)
-  pour laisser Tailwind gérer entièrement la mise en page.
-*/
+@layer base {
+  html {
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  ::selection { background: var(--accent-tint); color: var(--ink); }
+  dialog::backdrop { background: rgb(0 0 0 / 0.5); }
+}
+
+/* Primitives de la spec (section 2.8), partagées par toutes les vues */
+@layer components {
+  .btn-primary {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md bg-accent px-5 font-semibold text-accent-on transition-colors duration-fast hover:bg-accent-hover active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-danger {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md bg-danger px-5 font-semibold text-danger-on transition-colors duration-fast hover:brightness-95 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md border border-rule-strong px-4 font-medium text-ink transition-colors duration-fast hover:border-ink hover:bg-surface disabled:opacity-50;
+  }
+  .btn-danger-outline {
+    @apply btn-secondary text-danger hover:border-danger hover:bg-danger-tint;
+  }
+  .link {
+    @apply text-accent underline decoration-1 underline-offset-4 transition-colors duration-fast hover:text-accent-hover hover:decoration-2;
+  }
+  .nav-link {
+    @apply inline-flex min-h-11 items-center px-2 font-medium text-ink-soft underline-offset-8 transition-colors duration-fast hover:text-ink hover:underline;
+  }
+  .chip {
+    @apply rounded-sm border border-rule px-2 py-0.5 font-condensed text-meta font-medium text-ink-soft;
+  }
+  .field {
+    @apply block h-11 w-full rounded-md border border-rule-strong bg-surface px-3 text-base text-ink placeholder:text-muted focus:border-accent focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-accent [&:user-invalid]:border-danger aria-[invalid=true]:border-danger;
+  }
+  textarea.field {
+    @apply h-auto min-h-32 resize-y py-2.5;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-semibold text-ink;
+  }
+  .help {
+    @apply mt-1.5 text-meta text-muted;
+  }
+  .skeleton {
+    @apply rounded-md bg-rule motion-safe:animate-pulse;
+  }
+}
+
+@layer utilities {
+  .font-wide { font-stretch: 125%; }
+  .font-condensed { font-stretch: 75%; }
+}
+
+@keyframes name-stretch {
+  from { font-stretch: 100%; opacity: 0; }
+  30% { opacity: 1; }
+  to { font-stretch: 125%; opacity: 1; }
+}
+.hero-name { animation: name-stretch var(--dur-slow) var(--ease-enter) both; }
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+dialog[open] { animation: rise-in var(--dur-base) var(--ease-enter); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

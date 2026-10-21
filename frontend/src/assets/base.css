@@ -1,41 +1,50 @@
-/* Définition des variables de thème */
 :root {
-  --color-background: #0a192f;
-  --color-background-soft: #112240;
-  --color-background-mute: #1d3b64;
+  color-scheme: light dark;
 
-  --color-heading: #ccd6f6;
-  --color-text: #8892b0;
+  --paper: #F3F4F0;
+  --surface: #FFFFFF;
+  --ink: #1B1D1F;
+  --ink-soft: #3D4145;
+  --muted: #5C6166;
+  --rule: #D3D6CF;
+  --rule-strong: #858A82;
+  --accent: #2A3BD1;
+  --accent-hover: #1F2DA6;
+  --accent-tint: #E4E7FA;
+  --on-accent: #FFFFFF;
+  --danger: #B42318;
+  --danger-tint: #FBE9E7;
+  --on-danger: #FFFFFF;
+  --success: #1E7A46;
 
-  --color-accent: #64ffda;
-  --color-accent-hover: rgba(100, 255, 218, 0.1);
+  --font-sans: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-exit: 140ms;
+  --dur-slow: 700ms;
+  --ease-enter: cubic-bezier(.2, .7, .2, 1);
+  --ease-exit: cubic-bezier(.4, 0, 1, 1);
+
+  --header-h: 4rem;
 }
 
-/* Reset de base et configuration globale */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  position: relative;
-  font-weight: normal;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
-  line-height: 1.6;
-  font-family: var(--font-sans);
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* Suppression des règles de layout flex/grid qui cassaient le flux */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #16171A;
+    --surface: #1F2024;
+    --ink: #ECEDE8;
+    --ink-soft: #C9CBC4;
+    --muted: #9EA29A;
+    --rule: #34363A;
+    --rule-strong: #6E726B;
+    --accent: #9AA8FF;
+    --accent-hover: #B8C2FF;
+    --accent-tint: #23264A;
+    --on-accent: #16171A;
+    --danger: #FF8A80;
+    --danger-tint: #3A1F1E;
+    --on-danger: #16171A;
+    --success: #6FD49A;
+  }
 }
