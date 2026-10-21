@@ -2,7 +2,7 @@ const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const SECRET_KEY = 'votre_super_secret_key_a_changer_en_prod'; // À mettre dans un .env idéalement
+const SECRET_KEY = require('../config/jwt');
 
 exports.login = async (req, res) => {
   try {

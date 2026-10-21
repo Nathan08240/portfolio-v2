@@ -42,8 +42,10 @@ COPY backend/ .
 # On copie le build du frontend (dist) vers le dossier public du backend
 COPY --from=frontend-build /app/frontend/dist ./public
 
-# Création du dossier pour la persistance des données
+# Création du dossier pour la persistance des données (volume Coolify sur /app/data)
 RUN mkdir -p /app/data
+ENV DB_PATH=/app/data/database.sqlite
+ENV NODE_ENV=production
 
 # Exposition du port
 EXPOSE 3000

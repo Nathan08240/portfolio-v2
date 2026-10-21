@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = 'votre_super_secret_key_a_changer_en_prod';
+const SECRET_KEY = require('../config/jwt');
 
 module.exports = (req, res, next) => {
   try {

@@ -126,8 +126,9 @@ Thumbs.db
 # --- SPÉCIFIQUE AU PROJET ---
 
 # Backend : Base de données SQLite locale (ne pas commiter la DB de prod !)
-backend/database.sqlite
-backend/database.sqlite-journal
+*.sqlite
+*.sqlite-*
+backend/data/
 
 # Frontend : Build output
 frontend/dist

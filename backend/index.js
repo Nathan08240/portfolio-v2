@@ -62,9 +62,12 @@ const initializeDatabase = async () => {
     }
 
     const userCount = await User.count();
-    if (userCount === 0) {
-      const hashedPassword = await bcrypt.hash('admin123', 10);
+    if (userCount === 0 && !process.env.ADMIN_PASSWORD) {
+      console.warn('ADMIN_PASSWORD absent : aucun compte admin créé.');
+    } else if (userCount === 0) {
+      const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
       await User.create({ username: 'admin', password: hashedPassword });
+      console.log('Compte admin créé depuis ADMIN_PASSWORD.');
     }
     
     const expCount = await Experience.count();
