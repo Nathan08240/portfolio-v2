@@ -2,7 +2,7 @@
 import PageSection from './PageSection.vue';
 
 // Adresse actuelle conservée telle quelle : à remplacer par la vraie
-const CONTACT_EMAIL = 'votre.email@example.com';
+const CONTACT_EMAIL = 'branconathan@gmail.com';
 </script>
 
 <template>
