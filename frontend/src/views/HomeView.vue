@@ -7,8 +7,10 @@ import ProjectsList from '../components/ProjectsList.vue';
 import TimelineSection from '../components/TimelineSection.vue';
 import AboutSection from '../components/AboutSection.vue';
 import ContactSection from '../components/ContactSection.vue';
+import CommandPalette from '../components/CommandPalette.vue';
 
 const profile = ref(null);
+const palette = ref(null);
 const projects = ref([]);
 const experiences = ref([]);
 const status = reactive({ profile: 'loading', projects: 'loading', experiences: 'loading' }); // 'loading' | 'ok' | 'error'
@@ -43,7 +45,8 @@ const year = new Date().getFullYear();
 </script>
 
 <template>
-  <NavBar :name="shownProfile.name" :links="links" />
+  <NavBar :name="shownProfile.name" :links="links" @palette="palette.open()" />
+  <CommandPalette ref="palette" :links="links" />
   <main id="contenu" tabindex="-1" class="focus:outline-none">
     <HeroSection :profile="shownProfile" :loading="status.profile === 'loading'" :has-projects="showProjects" />
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">

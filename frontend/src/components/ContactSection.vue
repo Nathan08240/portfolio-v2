@@ -1,8 +1,6 @@
 <script setup>
 import PageSection from './PageSection.vue';
-
-// Adresse actuelle conservée telle quelle : à remplacer par la vraie
-const CONTACT_EMAIL = 'branconathan@gmail.com';
+import { CONTACT_EMAIL } from '@/config';
 </script>
 
 <template>

@@ -1,4 +1,6 @@
 <script setup>
+import StackScene from './StackScene.vue';
+
 defineProps({
   profile: { type: Object, required: true },
   loading: { type: Boolean, default: false },
@@ -7,7 +9,7 @@ defineProps({
 </script>
 
 <template>
-  <section id="home" :aria-busy="loading" class="mx-auto max-w-6xl px-4 pb-16 pt-14 sm:px-6 sm:pt-20 lg:px-8 lg:pb-24 lg:pt-28">
+  <section id="home" :aria-busy="loading" class="relative mx-auto max-w-6xl px-4 pb-16 pt-14 sm:px-6 sm:pt-20 lg:px-8 lg:pb-24 lg:pt-28">
     <template v-if="loading">
       <div class="text-display"><span class="skeleton block h-[0.95em] w-[6ch]"></span></div>
       <div class="skeleton mt-3 h-7 w-64 max-w-full"></div>
@@ -18,14 +20,15 @@ defineProps({
           <div class="skeleton h-5 w-2/3 max-w-[34rem]"></div>
         </div>
       </div>
+      <StackScene class="pointer-events-none mt-10 h-72 sm:h-80 lg:absolute lg:inset-y-10 lg:right-4 lg:mt-0 lg:h-auto lg:w-[42%] xl:right-8" />
     </template>
 
     <template v-else>
-      <h1 class="hero-name font-wide text-display font-extrabold text-ink text-balance hyphens-auto [overflow-wrap:anywhere]">{{ profile.name }}</h1>
-      <p class="mt-3 font-condensed text-hero-title font-semibold text-ink-soft text-balance">{{ profile.title }}</p>
+      <h1 class="hero-name relative z-10 font-wide text-display font-extrabold text-ink text-balance hyphens-auto [overflow-wrap:anywhere]">{{ profile.name }}</h1>
+      <p class="relative z-10 mt-3 font-condensed text-hero-title font-semibold text-ink-soft text-balance">{{ profile.title }}</p>
 
       <div class="mt-10 lg:mt-14 lg:grid lg:grid-cols-12">
-        <div class="lg:col-span-9 lg:col-start-4 lg:pl-10">
+        <div class="relative z-10 lg:col-span-5 lg:col-start-4 lg:pl-10">
           <p v-if="profile.introduction" class="max-w-[34rem] whitespace-pre-line text-lead text-ink-soft">{{ profile.introduction }}</p>
           <div class="flex flex-wrap gap-3" :class="{ 'mt-8': profile.introduction }">
             <a v-if="hasProjects" href="#projects" class="btn-primary">Voir les projets</a>
@@ -33,6 +36,7 @@ defineProps({
           </div>
         </div>
       </div>
+      <StackScene class="pointer-events-none mt-10 h-72 sm:h-80 lg:absolute lg:inset-y-10 lg:right-4 lg:mt-0 lg:h-auto lg:w-[42%] xl:right-8" />
     </template>
   </section>
 </template>
